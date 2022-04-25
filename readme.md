@@ -6,4 +6,4 @@ This particular video file serves as a good first example for writing code: http
 It is one of the experimental runs with a thin copper sheet inserted in the apparatus.
 ![](exampleLabelsFromOrig.png)
 
-
+Original project worksheet: https://docs.google.com/document/d/1CZgRNd7FJA8UqfG7KzfwiOGh-qMMUlGS/edit?usp=sharing&ouid=111855235615939808515&rtpof=true&sd=true
