@@ -35,3 +35,6 @@ function batchConvertVidToCroppedFrames(path, x₀, x₁, y₀, y₁, Δx, ndigi
     return digitsEachFrame, matForm
 
 end
+
+# a utility function for convenience:
+numMatRow2Image(matRow) = Gray.(reshape(matRow,(30,20)))
