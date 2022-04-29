@@ -1,7 +1,7 @@
 using FileIO, Images, VideoIO, Statistics, DelimitedFiles
 # https://juliaio.github.io/VideoIO.jl/stable/reading/
 
-function batchConvertVidToCroppedFrames(path, x₀, x₁, y₀, y₁, Δx, ndigits; invert = false, scaleFactor = 2/3, saveResults=false, saveString = "no_name",skipFrames=0)
+function batchConvertVidToCroppedFrames(path, x₀, x₁, y₀, y₁, Δx, nDigits; invert = false, scaleFactor = 2/3, saveResults=false, saveString = "no_name",skipFrames=0)
     vid = VideoIO.openvideo(path) # open video i/o stream
     VideoIO.seekstart(vid) # reset stream frame/time to zero
     digitsEachFrame = Vector{Matrix{Float64}}[]; # vector to save results in
@@ -15,7 +15,7 @@ function batchConvertVidToCroppedFrames(path, x₀, x₁, y₀, y₁, Δx, ndigi
             ).|> X -> (Int16∘round)(( # round to nearest integer
                     invert ? scaleFactor*(1-Float64(X)) : scaleFactor*Float64(X) # digit features should be ones (white), background should be zeros (black)
                 ),digits=0)
-        for i in 0:(ndigits-1)] # iterate over digits by translation
+        for i in 0:(nDigits-1)] # iterate over digits by translation
         push!(digitsEachFrame,digits) # save to vector
 
         VideoIO.skipframes(vid,skipFrames,throwEOF=false) # skip frames if you want, by default off
