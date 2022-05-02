@@ -21,7 +21,7 @@ function batchConvertVidToCroppedFrames(path, x₀, x₁, y₀, y₁, Δx, nDigi
         VideoIO.skipframes(vid,skipFrames,throwEOF=false) # skip frames if you want, by default off
     end
 
-    # convert to a set of ndigits of matrices so that each digit (position in video) has its own matrix
+    # convert to a set of nDigits of matrices so that each digit (position in video) has its own matrix
     # the entries of each matrix is the brightness of a pixel whose position (between 20*30 = 600) specified by its column and whose time (between 0 and nFramesTotal) is specified by its row
     matForm = [[reshape(Matrix{Int16}(X[Y]),30*20) for X in digitsEachFrame] for Y in (eachindex∘first)(digitsEachFrame)] .|> X -> (collect∘transpose∘reduce)(hcat,X)
     
