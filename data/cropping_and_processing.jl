@@ -1,4 +1,4 @@
-using FileIO, Images, VideoIO, Statistics, DelimitedFiles
+using FileIO, Images, VideoIO, Statistics, DelimitedFiles, ImageView, Random
 # https://juliaio.github.io/VideoIO.jl/stable/reading/
 
 function batchConvertVidToCroppedFrames(path, x₀, x₁, y₀, y₁, Δx, nDigits; invert = false, scaleFactor = 2/3, saveResults=false, saveString = "no_name",skipFrames=0)
@@ -38,3 +38,21 @@ end
 
 # a utility function for convenience:
 numMatRow2Image(matRow) = Gray.(reshape(matRow,(30,20)))
+
+function classifyFileRowsByHand(pathString, nToClassify;nStart = 1, saveResults=true,saveString=pathString[begin:end-4]*"labels.tsv")
+    labels=String[]
+    matForm=open(pathString,"r") do io readdlm(io) end
+    indices=shuffle(1:size(matForm,1))[1:nToClassify] |> sort
+    for i in indices
+        (imshow∘numMatRow2Image)(matForm[i,:])
+        label = readline()
+        push!(labels,label)
+        ImageView.closeall()
+    end
+    if saveResults
+        open(saveString,"w") do io
+            writedlm(io,hcat(indices,labels))
+        end
+    end
+    return indices,labels
+end
