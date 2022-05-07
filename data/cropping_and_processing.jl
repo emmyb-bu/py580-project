@@ -39,7 +39,7 @@ end
 # a utility function for convenience:
 numMatRow2Image(matRow) = Gray.(reshape(matRow,(30,20)))
 
-function classifyFileRowsByHand(pathString, nToClassify;nStart = 1, saveResults=true,saveString=pathString[begin:end-4]*"labels.tsv")
+function classifyFileRowsByHand(pathString, nToClassify;saveResults=true,saveStringEnd="",saveString=pathString[begin:end-4]*"labels"*saveStringEnd*".tsv")
     labels=String[]
     matForm=open(pathString,"r") do io readdlm(io) end
     indices=shuffle(1:size(matForm,1))[1:nToClassify] |> sort
